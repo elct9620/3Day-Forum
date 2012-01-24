@@ -7,36 +7,43 @@
  * @version 1.0
  */
 
-class User extends ActiveMongo
+class Users extends ActiveMongo
 {
-	public $userID;
-	public $nickname;
+	//資料表欄位
+	public $userID; //使用者編號(Facebook ID)
+	public $Nickname; //使用者膩稱
 	
 	/**
-	 * Auth User
+	 * Get User
 	 * 
 	 * @author Aotoki
 	 * @return object|bool 成功傳回 User 物件，失敗則傳回 FALSE
 	 */
 	
-	static public function authUser()
+	static public function getUser( $userID = NULL )
 	{
-		$FB = new Facebook(array(
-			'appId' => FB_APP_ID,
-			'secret' => FB_SECRET,
-		));
+		if(!$userID){
+			$FB = new Facebook(array(
+				'appId' => FB_APP_ID,
+				'secret' => FB_SECRET,
+			));
+			
+			$userID = $FB->getUser();
+		}
 		
-		$userID = $FB->getUser();
 		if(!$userID){
 			$app = Slim::getInstance();
 			$app->redirect($FB->getLoginUrl());
 		}else{
-			$user = new User;
+			$user = new Users;
 			$user->findOne(array('userID' => $userID));
 			if(!$user->valid()){
 				$user->userID = $userID;
 				$user->save();
 			}
+			
+			$app = Slim::getInstance();
+			$app->view()->setData('user', $user);
 			
 			return $user;
 		}

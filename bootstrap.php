@@ -29,13 +29,20 @@ $baseURL = "http://{$_SERVER['HTTP_HOST']}/{$basePath}";
 
 $app->view()->setData('basePath', $basePath);
 $app->view()->setData('baseURL', $baseURL);
+$app->view()->setData('app', $app);
 
 /* 讀取  App 邏輯 */
+require_once(ABSPATH . 'app/Template.php');
 
 /* 讀取 App 模型 */
-require_once(ABSPATH . 'app/models/User.php');
-/* 讀取 App 介面 */
+require_once(ABSPATH . 'app/models/Users.php');
+require_once(ABSPATH . 'app/models/Forums.php');
+require_once(ABSPATH . 'app/models/Thread.php');
+require_once(ABSPATH . 'app/models/Posts.php');
 
+/* 讀取 App 介面 */
+require_once(ABSPATH . 'app/web/Home.php');
+require_once(ABSPATH . 'app/web/Post.php');
 
 /* 運行 */
 $app->run();
