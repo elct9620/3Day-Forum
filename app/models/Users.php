@@ -20,8 +20,9 @@ class Users extends ActiveMongo
 	 * @return object|bool 成功傳回 User 物件，失敗則傳回 FALSE
 	 */
 	
-	static public function getUser( $userID = NULL )
+	static public function getUser( $fromUserID = NULL )
 	{
+		$userID = $fromUserID;
 		if(!$userID){
 			$FB = new Facebook(array(
 				'appId' => FB_APP_ID,
@@ -42,9 +43,10 @@ class Users extends ActiveMongo
 				$user->save();
 			}
 			
-			$app = Slim::getInstance();
-			$app->view()->setData('user', $user);
-			
+			if(!$fromUserID){
+				$app = Slim::getInstance();
+				$app->view()->setData('user', $user);
+			}
 			return $user;
 		}
 		

@@ -41,8 +41,9 @@ require_once(ABSPATH . 'app/models/Thread.php');
 require_once(ABSPATH . 'app/models/Posts.php');
 
 /* 讀取 App 介面 */
-require_once(ABSPATH . 'app/web/Home.php');
 require_once(ABSPATH . 'app/web/Post.php');
+require_once(ABSPATH . 'app/web/User.php');
+require_once(ABSPATH . 'app/web/Home.php');
 
 /* 運行 */
 $app->run();

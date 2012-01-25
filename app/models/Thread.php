@@ -67,6 +67,7 @@ class Thread extends ActiveMongo
 	 * @param string 主題內容
 	 * @param string 論壇ID
 	 * @param int 使用者ID
+	 * @return string 文章ID
 	 */
 	
 	static public function createTopic($Name, $Content, $forumID, $userID)
@@ -91,7 +92,7 @@ class Thread extends ActiveMongo
 		$thread->postID = $post->getID();
 		$thread->save();
 		
-		unset($thread, $post);
+		return $thread->getID();
 	}
 	
 	/**

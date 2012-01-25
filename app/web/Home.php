@@ -16,7 +16,10 @@ $app->get('/(:forumID)', function($forumID = NULL) use ($app){
 	}else{
 		$subForums = Forums::getForums($forumID);
 		$threads = Thread::getThreads($forumID);
+		$currentForum = Forums::getForum($forumID);
 		$app->render('forum.php', array(
+			'forumID' => $forumID,
+			'forumTree' => $currentForum,
 			'subForums' => $subForums,
 			'threads' => $threads,
 		));

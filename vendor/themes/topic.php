@@ -1,4 +1,4 @@
-<?php getHeader(); ?>
+<?php getHeader(array('forumTree' => $forumTree, 'postData' => $postData)); ?>
 
 	<div>
 		<?php if($postData){ ?>
@@ -9,15 +9,15 @@
 							<img src="https://graph.facebook.com/<?php echo $postData['user']['userID']; ?>/picture?type=normal" />
 						</div>
 						<?php
-							echo isset($postData['user']['Nickname']) ? $postData['user']['Nickname'] : 'Anonymous';
+							echo isset($postData['user']['Nickname']) ? htmlspecialchars($postData['user']['Nickname']) : 'Anonymous';
 						?>
 					</div>
 				</div>
 				<div class="span12">
 					<div>
-						<h2><?php echo $postData['thread']['Name']; ?></h2>
+						<h2><?php echo htmlspecialchars($postData['thread']['Name']); ?></h2>
 						<div>
-							<?php echo $postData['post']['Content']; ?>
+							<?php echo nl2br(htmlspecialchars($postData['post']['Content'])); ?>
 						</div>
 						<hr />
 						<div>
@@ -37,17 +37,17 @@
 							<img src="https://graph.facebook.com/<?php echo $post['user']['userID']; ?>/picture?type=normal" />
 						</div>
 						<?php
-							echo isset($post['user']['Nickname']) ? $post['user']['Nickname'] : 'Anonymous';
+							echo isset($post['user']['Nickname']) ? htmlspecialchars($post['user']['Nickname']) : 'Anonymous';
 						?>
 					</div>
 				</div>
 				<div class="span12">
 					<div>
 						<?php if(isset($post['post']['Name'])){ ?>
-						<h3><?php echo $post['post']['Name']; ?></h3>
+						<h3><?php echo htmlspecialchars($post['post']['Name']); ?></h3>
 						<?php } ?>
 						<div>
-							<?php echo $post['post']['Content']; ?>
+							<?php echo nl2br(htmlspecialchars($post['post']['Content'])); ?>
 						</div>
 						<hr />
 						<div>
@@ -60,6 +60,28 @@
 					}
 				}
 			?>
+			<div>
+				<form method="POST" action="<?php echo $app->urlFor('replyTopic', array('threadID' => $threadID)); ?>">
+					<fieldset>
+						<legend>Reply</legend>
+						<div class="clearfix">
+							<label>Title (Option)</label>
+							<div class="input">
+								<input type="text" class="xlarge" name="postName" />
+							</div>
+						</div>
+						<div class="clearfix">
+							<label>Content</label>
+							<div class="input">
+								<textarea class="xxlarge" rows="5" name="postContent"></textarea>
+							</div>
+						</div>
+						<div class="actions">
+							<button class="btn primary" type="submit">Reply</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
 		<?php
 			}else{
 		?>

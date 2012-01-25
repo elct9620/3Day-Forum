@@ -12,7 +12,28 @@ class Forums extends ActiveMongo
 	//資料表欄位
 	public $Name; //論壇名稱
 	public $Parent; //父論壇
+	
+	/**
+	 * Get Forum
+	 * 
+	 * @author Aotoki
+	 * @param string 論壇ID
+	 * @return object|bool
+	 */
+	
+	static public function getForum( $ID, $forumArgs = array() )
+	{
+		$forum = new Forums;
+		$forum->findOne(new MongoId($ID));
 		
+		array_push($forumArgs, $forum);
+		if(isset($forum->Parent)){
+			$forumArgs = self::getForum($forum->Parent, $forumArgs);
+		}
+		sort($forumArgs, SORT_DESC);
+		return $forumArgs;
+	}
+	
 	/**
 	 * Get Forums
 	 * 
@@ -23,10 +44,31 @@ class Forums extends ActiveMongo
 	
 	static public function getForums( $parentID = NULL)
 	{
-		$forum = new Forums;
-		$forum->reset();
-		$forum->find(array('Parent' => $parentID));
-		return $forum;
+		$forums = new Forums;
+		$forums->find(array('Parent' => $parentID));
+		
+		$result = array();
+		
+		foreach ($forums as $ID => $forum) {
+			$lastPost = new Thread;
+			$lastPost->sort('timestamp DESC');
+			$lastPost->findOne(array('forumID' => (string) $forum->getID()));
+			
+			if(!$lastPost->valid()){
+				$lastPost = array();
+			}else{
+				$lastPost = $lastPost->getArray();
+			}
+			
+			$result[] = array(
+				'forum' => $forum->getArray(),
+				'lastPost' => $lastPost,
+			);
+			
+			unset($lastPost);
+		}
+		
+		return $result;
 	}
 	
 	/**
