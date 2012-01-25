@@ -25,7 +25,7 @@
 							<?php
 								if($admUser){
 							?>
-							&nbsp;|&nbsp;<a href="<?php echo $app->urlFor('Topic', array('threadID' => $postData['thread']['_id'], 'action' => 'DELETE')); ?>">Delete</a>
+							<a class="btn danger small" href="<?php echo $app->urlFor('Topic', array('threadID' => $postData['thread']['_id'], 'action' => 'DELETE')); ?>">Delete</a>
 							<?php
 								}
 							?>
@@ -62,7 +62,7 @@
 							<?php
 								if($admUser){
 							?>
-							&nbsp;|&nbsp;<a href="<?php echo $app->urlFor('delPost', array('postID' => $post['post']['_id'])); ?>">Delete</a>
+							<a class="btn danger small" href="<?php echo $app->urlFor('delPost', array('postID' => $post['post']['_id'])); ?>">Delete</a>
 							<?php
 								}
 							?>

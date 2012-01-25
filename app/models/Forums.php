@@ -98,8 +98,14 @@ class Forums extends ActiveMongo
 	
 	static public function deleteForum($forumID)
 	{
+		
+		$parentID = NULL;
+		
 		$forum = new Forums;
 		$forum->findOne(new MongoId($forumID));
+		if(isset($forum->Parent)){
+			$parentID = $forum->Parent;
+		}
 		$forum->delete();
 		
 		$subForums = self::getForums($forumID);
@@ -112,6 +118,8 @@ class Forums extends ActiveMongo
 		foreach($topics as $ID => $topic){
 			Thread::deleteTopic($ID);
 		}
+		
+		return $parentID;
 	}
 	
 }

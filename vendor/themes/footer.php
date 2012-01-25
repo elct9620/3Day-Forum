@@ -1,5 +1,5 @@
 		<footer>
-		 <p>&copy; Copyright by 蒼時弦也</p>
+		 <p>&copy; Powered by 3Day-Forum</p>
 		</footer>
 	</div>
 </body>

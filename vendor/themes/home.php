@@ -4,8 +4,8 @@
 			<table class="bordered-table zebra-striped">
 				<thead>
 					<tr>
-						<th>Name</th>
-						<th>Last Post</th>
+						<th class="span12">Name</th>
+						<th class="span4">Last Post</th>
 					</tr>
 				</thead>
 				<tbody>

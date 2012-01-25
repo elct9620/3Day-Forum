@@ -13,8 +13,8 @@ $app->map('/(:forumID)(/:action)', function($forumID = NULL, $action = NULL) use
 	
 	if($action == 'DELETE'){
 		if(isset($user->Type) && intval($user->Type) === 1){
-			Forums::deleteForum($forumID);
-			$app->redirect($app->urlFor('Home'));
+			$parent = Forums::deleteForum($forumID);
+			$app->redirect($app->urlFor('Home', array('forumID' => $parent)));
 		}
 	}
 	

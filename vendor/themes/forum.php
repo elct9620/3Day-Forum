@@ -7,8 +7,8 @@
 		<table class="bordered-table zebra-striped">
 			<thead>
 				<tr>
-					<th>Name</th>
-					<th>Last Post</th>
+					<th class="span12">Name</th>
+					<th class="span4">Last Post</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,9 +35,9 @@
 		<table class="bordered-table zebra-striped">
 			<thead>
 				<tr>
-					<th>Topic</th>
-					<th>Poster</th>
-					<th>Date</th>
+					<th class="span10">Topic</th>
+					<th class="span3">Poster</th>
+					<th class="span3">Date</th>
 				</tr>
 			</thead>
 			<tbody>
