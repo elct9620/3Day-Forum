@@ -62,6 +62,18 @@
 				?>
 			</tbody>
 		</table>
+		<?php if(isset($user->Type) && intval($user->Type) === 1){ ?>
+		<div class="well">
+			<form method="POST" class="no-bottom-space">
+				<label>New Forum</label>
+				<div class="input">
+					<input type="text" name="forumName" />
+					<button class="btn primary">Create</button>
+					<a class="btn danger" href="<?php echo $app->urlFor('Home', array('forumID' => $forumID, 'action' => 'DELETE')); ?>">Delete</a>
+				</div>
+			</form>
+		</div>
+		<?php } ?>
 	</div>
 
 <?php getFooter(); ?>

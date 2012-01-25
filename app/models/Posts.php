@@ -40,4 +40,22 @@ class Posts extends ActiveMongo
 		unset($post);
 	}
 	
+	/**
+	 * Delete Reply
+	 * 
+	 * @author Aotoki
+	 * @param string 文章ID
+	 * @return string 主題ID
+	 */
+	
+	static public function deleteReply($postID)
+	{
+		$post = new Posts;
+		$post->findOne(new MongoId($postID));
+		$threadID = $post->threadID;
+		$post->delete();
+		
+		return $threadID;
+	}
+	
 }

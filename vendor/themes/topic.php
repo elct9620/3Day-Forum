@@ -22,6 +22,13 @@
 						<hr />
 						<div>
 							Posted on <?php echo date('Y-m-d H:i:s', $postData['post']['timestamp']); ?>
+							<?php
+								if($admUser){
+							?>
+							&nbsp;|&nbsp;<a href="<?php echo $app->urlFor('Topic', array('threadID' => $postData['thread']['_id'], 'action' => 'DELETE')); ?>">Delete</a>
+							<?php
+								}
+							?>
 						</div>
 					</div>
 				</div>
@@ -51,7 +58,14 @@
 						</div>
 						<hr />
 						<div>
-							Posted on <?php echo date('Y-m-d H:i:s', $postData['post']['timestamp']); ?>
+							Posted on <?php echo date('Y-m-d H:i:s', $post['post']['timestamp']); ?>
+							<?php
+								if($admUser){
+							?>
+							&nbsp;|&nbsp;<a href="<?php echo $app->urlFor('delPost', array('postID' => $post['post']['_id'])); ?>">Delete</a>
+							<?php
+								}
+							?>
 						</div>
 					</div>
 				</div>

@@ -6,3 +6,7 @@ body{
 	text-align:right;
 	margin-bottom: 18px;
 }
+
+.no-bottom-space{
+	margin-bottom: 0;
+}

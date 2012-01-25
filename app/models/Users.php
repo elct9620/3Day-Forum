@@ -12,6 +12,7 @@ class Users extends ActiveMongo
 	//資料表欄位
 	public $userID; //使用者編號(Facebook ID)
 	public $Nickname; //使用者膩稱
+	public $Type; //使用者類型（1 = Admin, 0 = User）
 	
 	/**
 	 * Get User
@@ -48,8 +49,6 @@ class Users extends ActiveMongo
 				$app->view()->setData('user', $user);
 			}
 			return $user;
-		}
-		
+		}	
 	}
-	
 }

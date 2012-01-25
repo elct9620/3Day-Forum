@@ -89,4 +89,29 @@ class Forums extends ActiveMongo
 		unset($forum);
 	}
 	
+	/**
+	 * Delete Forum
+	 * 
+	 * @author Aotoki
+	 * @param string 論壇ID
+	 */
+	
+	static public function deleteForum($forumID)
+	{
+		$forum = new Forums;
+		$forum->findOne(new MongoId($forumID));
+		$forum->delete();
+		
+		$subForums = self::getForums($forumID);
+		foreach($subForums as $ID => $forum){
+			self::deleteForum($ID);
+		}
+		
+		$topics = new Thread;
+		$topics->find(array('forumID' => $forumID));
+		foreach($topics as $ID => $topic){
+			Thread::deleteTopic($ID);
+		}
+	}
+	
 }

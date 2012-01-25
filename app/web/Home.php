@@ -7,9 +7,22 @@
  * @version 1.0
  */
 
-$app->get('/(:forumID)', function($forumID = NULL) use ($app){
+$app->map('/(:forumID)(/:action)', function($forumID = NULL, $action = NULL) use ($app){
 	
 	$user = Users::getUser();
+	
+	if($action == 'DELETE'){
+		if(isset($user->Type) && intval($user->Type) === 1){
+			Forums::deleteForum($forumID);
+			$app->redirect($app->urlFor('Home'));
+		}
+	}
+	
+	if($forumName = $app->request()->post('forumName')){
+		if(isset($user->Type) && intval($user->Type) === 1){
+			Forums::createForum($forumName, $forumID);
+		}
+	}
 	
 	if(!$forumID){
 		$app->render('home.php');
@@ -24,4 +37,4 @@ $app->get('/(:forumID)', function($forumID = NULL) use ($app){
 			'threads' => $threads,
 		));
 	}
-})->name('Home');
+})->via('GET', 'POST')->name('Home');

@@ -148,4 +148,29 @@ class Thread extends ActiveMongo
 		
 		return FALSE;
 	}
+	
+	/**
+	 * Delete Topic
+	 * 
+	 * @author Aotoki
+	 * @param string 主題ID
+	 */
+	
+	static public function deleteTopic($threadID)
+	{
+		$thread = new Thread;
+		$thread->findOne(new MongoId($threadID));
+		
+		$posts = new Posts;
+		$posts->findOne(new MongoId($thread->postID));
+		$posts->delete();
+		
+		$thread->delete();
+		
+		$posts->reset();
+		$posts->find(array('threadID' => $threadID));
+		foreach($posts as $post){
+			$post->delete();
+		}
+	}
 }
