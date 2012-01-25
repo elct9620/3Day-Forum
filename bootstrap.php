@@ -9,7 +9,7 @@
 
 /* 初始化 Slim Framework */
 $app = new Slim(array(
-	'mode' => 'development',
+	'mode' => 'production',
 	'http.version' => '1.1',
 	'debug' => DEBUG,
 	'templates.path' => ABSPATH . 'vendor/themes',
