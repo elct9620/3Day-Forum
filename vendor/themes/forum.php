@@ -67,7 +67,7 @@
 			<form method="POST" class="no-bottom-space">
 				<label>New Forum</label>
 				<div class="input">
-					<input type="text" name="forumName" />
+					<input type="text" name="forumName" title="Type new forum name" />
 					<button class="btn primary">Create</button>
 					<a class="btn danger" href="<?php echo $app->urlFor('Home', array('forumID' => $forumID, 'action' => 'DELETE')); ?>">Delete</a>
 				</div>

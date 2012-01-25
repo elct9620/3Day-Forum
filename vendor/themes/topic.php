@@ -3,24 +3,27 @@
 	<div>
 		<?php if($postData){ ?>
 			<div class="row">
-				<div class="span4">
+				<div class="span3">
 					<div class="well">
-						<div>
-							<img src="https://graph.facebook.com/<?php echo $postData['user']['userID']; ?>/picture?type=normal" />
+						<div class="profile">
+							<div>
+								<img src="https://graph.facebook.com/<?php echo $postData['user']['userID']; ?>/picture?type=normal" />
+							</div>
+							<strong>
+							<?php
+								echo isset($postData['user']['Nickname']) ? htmlspecialchars($postData['user']['Nickname']) : 'Anonymous';
+							?>
+							</strong>
 						</div>
-						<?php
-							echo isset($postData['user']['Nickname']) ? htmlspecialchars($postData['user']['Nickname']) : 'Anonymous';
-						?>
 					</div>
 				</div>
-				<div class="span12">
-					<div>
+				<div class="span13">
+					<article>
+						<header>
 						<h2><?php echo htmlspecialchars($postData['thread']['Name']); ?></h2>
-						<div>
-							<?php echo nl2br(htmlspecialchars($postData['post']['Content'])); ?>
-						</div>
-						<hr />
-						<div>
+						</header>
+						<div class="article"><?php echo nl2br(htmlspecialchars($postData['post']['Content'])); ?></div>
+						<footer>
 							Posted on <?php echo date('Y-m-d H:i:s', $postData['post']['timestamp']); ?>
 							<?php
 								if($admUser){
@@ -29,8 +32,8 @@
 							<?php
 								}
 							?>
-						</div>
-					</div>
+						</footer>
+					</article>
 				</div>
 			</div>
 			<?php
@@ -38,26 +41,29 @@
 					foreach ($postData['posts'] as $post) {
 			?>
 			<div class="row">
-				<div class="span4">
+				<div class="span3">
 					<div class="well">
-						<div>
-							<img src="https://graph.facebook.com/<?php echo $post['user']['userID']; ?>/picture?type=normal" />
+						<div class="profile">
+							<div>
+								<img src="https://graph.facebook.com/<?php echo $post['user']['userID']; ?>/picture?type=normal" />
+							</div>
+							<strong>
+							<?php
+								echo isset($post['user']['Nickname']) ? htmlspecialchars($post['user']['Nickname']) : 'Anonymous';
+							?>
+							</strong>
 						</div>
-						<?php
-							echo isset($post['user']['Nickname']) ? htmlspecialchars($post['user']['Nickname']) : 'Anonymous';
-						?>
 					</div>
 				</div>
-				<div class="span12">
-					<div>
+				<div class="span13">
+					<article>
 						<?php if(isset($post['post']['Name'])){ ?>
-						<h3><?php echo htmlspecialchars($post['post']['Name']); ?></h3>
+						<header>
+							<h3><?php echo htmlspecialchars($post['post']['Name']); ?></h3>
+						</header>
 						<?php } ?>
-						<div>
-							<?php echo nl2br(htmlspecialchars($post['post']['Content'])); ?>
-						</div>
-						<hr />
-						<div>
+						<div class="article"><?php echo nl2br(htmlspecialchars($post['post']['Content'])); ?></div>
+						<footer>
 							Posted on <?php echo date('Y-m-d H:i:s', $post['post']['timestamp']); ?>
 							<?php
 								if($admUser){
@@ -66,28 +72,28 @@
 							<?php
 								}
 							?>
-						</div>
-					</div>
+						</footer>
+					</article>
 				</div>
 			</div>
 			<?php
 					}
 				}
 			?>
-			<div>
+			<div class="well">
 				<form method="POST" action="<?php echo $app->urlFor('replyTopic', array('threadID' => $threadID)); ?>">
 					<fieldset>
 						<legend>Reply</legend>
 						<div class="clearfix">
 							<label>Title (Option)</label>
 							<div class="input">
-								<input type="text" class="xlarge" name="postName" />
+								<input type="text" class="xlarge" name="postName" title="This can skip" />
 							</div>
 						</div>
 						<div class="clearfix">
 							<label>Content</label>
 							<div class="input">
-								<textarea class="xxlarge" rows="5" name="postContent"></textarea>
+								<textarea class="xxlarge" rows="5" name="postContent" title="Type something you want to reply."></textarea>
 							</div>
 						</div>
 						<div class="actions">

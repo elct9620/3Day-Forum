@@ -14,8 +14,18 @@
 	<meta name="viewport" content="width=device-width; initial-scale=1.0" />
 	
 	<!-- Load Bootstrap -->
-	<link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
+	<link rel="stylesheet" href="<?php echo $basePath; ?>asset/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="<?php echo $basePath; ?>asset/css/style.css" />
+	
+	<!-- JavaScript -->
+	<script src="<?php echo $basePath; ?>/asset/js/jquery-1.7.1.min.js"></script>
+	<script src="<?php echo $basePath; ?>/asset/js/bootstrap-twipsy.js"></script>
+	
+	<script>
+		$(function(){
+			$('input,textarea').twipsy();
+		});
+	</script>
 </head>
 
 <body>
