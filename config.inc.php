@@ -22,8 +22,8 @@ if(!defined('ABSPATH')){
 define('DEBUG', FALSE);
 
 //Facebook API
-define('FB_APP_ID', '233746730030809');
-define('FB_SECRET', 'bcd3912de0eca13daee0a577c107ae3e');
+define('FB_APP_ID', '');
+define('FB_SECRET', '');
 
 //Cookie 密鑰
 define('COOKIE_SECRET_KEY', 'my-3day-forum');
