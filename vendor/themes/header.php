@@ -7,7 +7,7 @@
 			 Remove this if you use the .htaccess -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>3Day Forum</title>
+	<title><?php echo isset($tempData['title']) ? htmlspecialchars($tempData['title']) . ' - ' : ''; ?>3Day Forum</title>
 	<meta name="description" content="" />
 	<meta name="author" content="蒼時弦也" />
 

@@ -52,7 +52,8 @@ class Forums extends ActiveMongo
 		foreach ($forums as $ID => $forum) {
 			$lastPost = new Thread;
 			$lastPost->sort('timestamp DESC');
-			$lastPost->findOne(array('forumID' => (string) $forum->getID()));
+			$lastPost->where('forumID',(string) $forum->getID());
+			$lastPost->limit(1);
 			
 			if(!$lastPost->valid()){
 				$lastPost = array();

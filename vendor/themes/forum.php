@@ -1,4 +1,4 @@
-<?php getHeader(array('forumTree' => $forumTree)); ?>
+<?php getHeader(array('forumTree' => $forumTree, 'title' => $currentForum->Name)); ?>
 
 	<div>
 		<?php

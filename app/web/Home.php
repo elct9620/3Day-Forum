@@ -29,10 +29,13 @@ $app->map('/(:forumID)(/:action)', function($forumID = NULL, $action = NULL) use
 	}else{
 		$subForums = Forums::getForums($forumID);
 		$threads = Thread::getThreads($forumID);
-		$currentForum = Forums::getForum($forumID);
+		$forumTree = Forums::getForum($forumID);
+		$currentForum = end($forumTree);
+		
 		$app->render('forum.php', array(
+			'currentForum' => $currentForum,
 			'forumID' => $forumID,
-			'forumTree' => $currentForum,
+			'forumTree' => $forumTree,
 			'subForums' => $subForums,
 			'threads' => $threads,
 		));

@@ -1,4 +1,4 @@
-<?php getHeader(array('forumTree' => $forumTree, 'postData' => $postData)); ?>
+<?php getHeader(array('forumTree' => $forumTree, 'postData' => $postData, 'title' => $postData['thread']['Name'])); ?>
 
 	<div>
 		<?php if($postData){ ?>
@@ -81,8 +81,8 @@
 				}
 			?>
 			<div class="well">
-				<form method="POST" action="<?php echo $app->urlFor('replyTopic', array('threadID' => $threadID)); ?>">
-					<fieldset>
+				<form class="no-bottom-space" method="POST" action="<?php echo $app->urlFor('replyTopic', array('threadID' => $threadID)); ?>">
+					<fieldset class="no-bottom-space">
 						<legend>Reply</legend>
 						<div class="clearfix">
 							<label>Title (Option)</label>
@@ -96,7 +96,7 @@
 								<textarea class="xxlarge" rows="5" name="postContent" title="Type something you want to reply."></textarea>
 							</div>
 						</div>
-						<div class="actions">
+						<div class="actions no-bottom-space">
 							<button class="btn primary" type="submit">Reply</button>
 						</div>
 					</fieldset>

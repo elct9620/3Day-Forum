@@ -7,6 +7,9 @@
  * @version 1.0
  */
 
+/* 修正時區 */
+date_default_timezone_set("Asia/Taipei");
+ 
 /* 初始化 Slim Framework */
 $app = new Slim(array(
 	'mode' => 'production',
