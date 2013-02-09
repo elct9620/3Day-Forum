@@ -3,7 +3,6 @@
   define(['jquery', 'underscore', 'backbone', 'collections/Forums', 'text!templates/main.html'], function($, _, Backbone, Forums, mainTemplate) {
     return Backbone.View.extend({
       el: '#main-frame',
-      events: {},
       initialize: function() {
         var forums, self;
         forums = new Forums;

@@ -1,18 +1,31 @@
 (function() {
 
-  define(['backbone', 'require', 'views/MainView'], function(Backbone, require, MainView) {
+  define(['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/ThreadView'], function(Backbone, require) {
     var Router;
     return Router = Backbone.Router.extend({
       routes: {
         "": "index",
-        "forums": "forum",
-        "forum/:slug": "forum"
+        "forum/:id": "forum",
+        "thread/:id": "thread"
       },
       index: function() {
+        var MainView;
+        MainView = require('views/MainView');
         return new MainView;
       },
-      forum: function(slug) {
-        return console.log(slug);
+      forum: function(id) {
+        var ForumView;
+        ForumView = require('views/ForumView');
+        return new ForumView({
+          id: id
+        });
+      },
+      thread: function(id) {
+        var ThreadView;
+        ThreadView = require('views/ThreadView');
+        return new ThreadView({
+          id: id
+        });
       }
     });
   });

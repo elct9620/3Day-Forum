@@ -1,0 +1,14 @@
+<div id="chid-forums">
+</div>
+
+<div id="threads">
+ <% if(_.size(threads) > 0){ %>
+  <% _.each(threads, function(thread){ %>
+    <div class="thread">
+      <a href="#/thread/<%= thread.get('id') %>"><%= thread.get('subject') %></a>
+    </div>
+  <% }) %>
+<% }else{ %>
+No Thread in this forum
+<% } %>
+</div>

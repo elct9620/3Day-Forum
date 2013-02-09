@@ -24,6 +24,10 @@ class Forum extends \BaseMongoRecord {
 
     $forums = Forum::find(array('parent' => $id));
 
+    if(count($forums) <= 0) {
+      return false;
+    }
+
     $data = array();
 
     foreach($forums as $forum) {

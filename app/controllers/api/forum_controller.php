@@ -13,12 +13,16 @@ class ForumController extends \Aotoki\BaseController {
 
   public static function getForums()
   {
-    self::respondJSON(\Aotoki\Forum::getForums());
-  }
+    $app = self::getApp();
+    $req = $app->request();
 
-  public static function getChildForums($forumID)
-  {
-    self::respondJSON(\Aotoki\Forum::getForums($forumID));
+    $parent = $req->get('parent');
+
+    if($parent) {
+      self::respondJSON(\Aotoki\Forum::getForums($parent));
+    } else {
+      self::respondJSON(\Aotoki\Forum::getForums());
+    }
   }
 
   public static function create()

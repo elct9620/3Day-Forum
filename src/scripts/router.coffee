@@ -1,16 +1,21 @@
-define ['backbone', 'require', 'views/MainView'], (Backbone, require, MainView) ->
+define ['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/ThreadView'], (Backbone, require) ->
 
   Router = Backbone.Router.extend {
     routes: {
       "": "index",
-      "forums": "forum",
-      "forum/:slug": "forum"
+      "forum/:id": "forum",
+      "thread/:id": "thread"
     }
 
     index: ->
+      MainView =  require('views/MainView')
       new MainView
 
-    forum: (slug)->
-      console.log slug
+    forum: (id)->
+      ForumView = require('views/ForumView')
+      new ForumView {id: id}
 
+    thread: (id) ->
+      ThreadView = require('views/ThreadView')
+      new ThreadView {id: id}
   }

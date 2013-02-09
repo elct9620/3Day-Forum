@@ -11,9 +11,16 @@ namespace Aotoki\Api;
 
 class PostController extends \Aotoki\BaseController {
 
-  public static function getPosts($threadID, $page = 1)
+  public static function getPosts()
   {
+    $app = self::getApp();
+    $req = $app->request();
 
+    $threadID = $req->get('threadID');
+    $page = $req->get('page');
+    $page = $page ? $page : 1;
+
+    self::respondJSON(\Aotoki\Post::getPosts($threadID, (int) $page));
   }
 
   public static function create($threadID)

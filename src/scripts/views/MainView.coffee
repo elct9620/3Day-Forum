@@ -3,10 +3,8 @@ define ['jquery', 'underscore', 'backbone', 'collections/Forums', 'text!template
   Backbone.View.extend {
     el: '#main-frame',
 
-    events: {
-    }
-
     initialize: ()->
+
       forums = new Forums
       forums.fetch()
 

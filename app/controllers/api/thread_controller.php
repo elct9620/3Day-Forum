@@ -11,14 +11,21 @@ namespace Aotoki\Api;
 
 class ThreadController extends \Aotoki\BaseController {
 
-  public static function getThreads($forumID, $page = 1)
+  public static function getThreads()
   {
+    $app = self::getApp();
+    $req = $app->request();
 
+    $forumID = $req->get('forumID');
+    $page = $req->get('page');
+    $page = $page ? $page : 1;
+
+    self::respondJSON(\Aotoki\Thread::getThreads($forumID, (int) $page));
   }
 
   public static function getThread($threadID)
   {
-
+    self::respondJSON(\Aotoki\Thread::getThread($threadID));
   }
 
   public static function create($forumID)
