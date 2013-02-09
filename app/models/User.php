@@ -9,7 +9,7 @@
 
 namespace Aotoki;
 
-class User extends BaseMongoRecord {
+class User extends \BaseMongoRecord {
   protected $email;
   protected $nickname;
 }

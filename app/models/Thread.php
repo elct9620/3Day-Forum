@@ -9,7 +9,7 @@
 
 namespace Aotoki;
 
-class Thread extends BaseMongoRecord {
+class Thread extends \BaseMongoRecord {
   protected $id;
   protected $topic;
   protected $author;

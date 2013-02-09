@@ -9,7 +9,7 @@
 
 namespace Aotoki;
 
-class Post extends BaseMongoRecord {
+class Post extends \BaseMongoRecord {
   protected $content;
   protected $author;
   protected $thread;
