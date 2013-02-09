@@ -25,5 +25,7 @@ require.config {
   }
 }
 
-require ['app'], (app) ->
-  console.log(app);
+require ['jquery', 'app'], ($, App) ->
+
+  $(document).ready ->
+    new App

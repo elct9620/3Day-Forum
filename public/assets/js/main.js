@@ -24,8 +24,10 @@
     }
   });
 
-  require(['app'], function(app) {
-    return console.log(app);
+  require(['jquery', 'app'], function($, App) {
+    return $(document).ready(function() {
+      return new App;
+    });
   });
 
 }).call(this);
