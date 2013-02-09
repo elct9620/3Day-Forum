@@ -1,6 +1,46 @@
 {
-    "hash": "cbed89d3a08c8fe11b5cd587e3407afb",
+    "hash": "d2bd527f4f9c23391e88d96ffe038a7e",
     "packages": [
+        {
+            "name": "browserid/browserid",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/raymondjavaxx/php5-browserid",
+                "reference": "v1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/raymondjavaxx/php5-browserid/zipball/v1.0",
+                "reference": "v1.0",
+                "shasum": ""
+            },
+            "time": "2012-11-19 04:44:13",
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "browserid": "libraries/"
+                }
+            },
+            "notification-url": "http://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ramon Torres",
+                    "email": "raymondjavaxx@gmail.com"
+                }
+            ],
+            "description": "BrowserID lib for PHP >= 5.3",
+            "homepage": "https://github.com/raymondjavaxx/php5-browserid",
+            "keywords": [
+                "Authentication",
+                "auth",
+                "Persona",
+                "BrowserID"
+            ]
+        },
         {
             "name": "caseyamcl/MongoRecord",
             "version": "dev-master",
@@ -187,6 +227,7 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "caseyamcl/mongorecord": 20
+        "caseyamcl/mongorecord": 20,
+        "browserid/browserid": 20
     }
 }

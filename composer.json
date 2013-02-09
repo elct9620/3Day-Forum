@@ -16,7 +16,8 @@
         "slim/slim": "2.*",
         "slim/extras": "2.*",
         "twig/twig": "1.*",
-        "caseyamcl/MongoRecord": "dev-master"
+        "caseyamcl/MongoRecord": "dev-master",
+        "browserid/browserid": "dev-master"
     },
     "autoload": {
       "classmap": ["app/controllers", "app/models"]
