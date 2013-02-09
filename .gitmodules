@@ -1,0 +1,3 @@
+[submodule "src/styles/normalize"]
+	path = src/styles/normalize
+	url = git://github.com/appleboy/normalize.scss.git
