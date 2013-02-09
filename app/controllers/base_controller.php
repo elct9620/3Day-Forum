@@ -14,4 +14,14 @@ class BaseController {
   {
     return \Slim\Slim::getInstance();
   }
+
+  public static function respondJSON($data)
+  {
+    $app = self::getApp();
+
+    $res = $app->response();
+    $res['Content-Type'] = 'application/json';
+
+    echo json_encode($data);
+  }
 }

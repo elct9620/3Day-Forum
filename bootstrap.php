@@ -42,6 +42,11 @@ $app = new \Slim\Slim(array(
 $app->view(new \Slim\Extras\Views\Twig());
 
 // Setting Up Basic View Info
+$app->view()->setData('site_name', SITE_NAME);
+$app->view()->setData('site_description', SITE_DESCRIPTION);
+
+$app->view()->setData('ga_code', GOOGLE_ANALYTICS);
+
 $app->view()->setData('css_path', 'public/assets/css');
 $app->view()->setData('js_path', 'public/assets/js');
 $app->view()->setData('img_path', 'public/assets/images');

@@ -2,8 +2,10 @@ temp
 dist
 .sass-cache
 /vendor/
+logs
 /logs/*
 !/logs/README.md
+cache
 /cache/*
 !/cache/README.md
 .DS_STORE

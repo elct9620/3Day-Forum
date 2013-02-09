@@ -25,3 +25,10 @@ define('DEBUG', true);
 
 // Cookie Secret
 define('COOKIE_SECRET', '3day-forum');
+
+// Sitename
+define('SITE_NAME', '3Day Forum');
+define('SITE_DESCRIPTION', 'A 3Day Forum Demo');
+
+// Google Analytics
+define('GOOGLE_ANALYTICS', 'XXXX-X');
