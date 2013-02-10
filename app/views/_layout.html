@@ -25,15 +25,22 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
-        <header id="header" role="header">
-        {% block header %}
-          <h1><a href="#/">{{site_name}}</a></h1>
-        {% endblock %}
-          <section id="user-area">
-            {% block user_area %}
-              <a href="javascript:navigator.id.request();">Login</a>
+        <header id="header" role="header" class="contain-to-grid">
+          <nav class="top-bar">
+            {% block header %}
+            <ul>
+              <li class="name"><h1><a href="#/">{{site_name}}</a></h1></li>
+              <li class="toggle-topbar"><a href="#"></a></li>
+            </ul>
             {% endblock %}
-          </section>
+            <section>
+              {% block user_area %}
+                <ul class="right" id="user-area">
+                  <li><a href="javascript:navigator.id.request();">Login</a></li>
+                </ul>
+              {% endblock %}
+            </section>
+          </nav>
         </header>
 
         <div id="main-frame">
@@ -42,9 +49,13 @@
         </div>
 
         <footer id="footer" role="footer">
-        {% block footer %}
-          Powered by <a href="http://frost.tw">Frost</a>.
-        {% endblock %}
+          <div class="row">
+            <div class="columns twelve">
+            {% block footer %}
+              Powered by <a href="http://frost.tw">Frost</a>.
+            {% endblock %}
+          </div>
+        </div>
         </footer>
 
 

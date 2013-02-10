@@ -1,10 +1,18 @@
-<div id="topic">
-  <h2><%= thread.get('subject') %></h2>
-  <%= thread.get('content') %>
+<div id="topic" class="row">
+  <div class="columns two">
+  </div>
+  <div class="columns ten">
+    <h2><%= thread.get('subject') %></h2>
+    <%= thread.get('content') %>
+  </div>
 </div>
 <div id="posts">
 </div>
-<form id="create-post" method="POST" action="thread/<%= threadID %>/post/new">
-  <textarea name="content"></textarea>
-  <button type="submit">Reply</button>
-</form>
+<div class="row">
+  <div class="columns twelve">
+    <form id="create-post" method="POST" action="thread/<%= threadID %>/post/new">
+      <textarea name="content" placeholder="Message"></textarea>
+      <button type="submit" class="small button">Reply</button>
+    </form>
+  </div>
+</div>

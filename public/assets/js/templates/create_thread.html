@@ -1,5 +1,11 @@
-<form id="create-thread" action="forum/<%= forumID %>/thread/new" method="POST">
-  Subject: <input name="subject" type="text" />
-  Content: <textarea name="content"></textarea>
-  <button type="submit">Submit</button>
-</form>
+<div class="row">
+  <div class="columns twelve">
+    <form id="create-thread" action="forum/<%= forumID %>/thread/new" method="POST">
+      <label>Subject</label>
+      <input name="subject" type="text" placeholder="Subject" />
+      <label>Content</label>
+      <textarea name="content" placeholder="Message"></textarea>
+      <button class="small button" type="submit">Submit</button>
+    </form>
+  </div>
+</div>

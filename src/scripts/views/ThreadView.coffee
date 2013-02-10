@@ -24,7 +24,7 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts'
 
       @.posts.on 'reset', (event) ->
         @.each (post) ->
-          $("#posts").append("<div>#{post.get('content')}</div>")
+          $("#posts").append("<div class=\"row\"><div class=\"columns two\"></div><div class=\"columns ten\">#{post.get('content')}</div></div>")
 
     new_post: (e) ->
       content_el = $("#create-post textarea[name=content]")

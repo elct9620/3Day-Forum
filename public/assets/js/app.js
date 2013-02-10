@@ -17,10 +17,11 @@
                 assertion: assertion
               },
               success: function(res) {
-                $("#user-area").html('');
-                $("#user-area").append("Hello, " + res.nickname);
-                $("#user-area").append("<img src=\"http://www.gravatar.com/avatar/" + res.gavatar + "\" alt=\"" + res.nickname + "\" />");
-                return $("#user-area").append("<a href=\"javascript:navigator.id.logout();\">Logout</a>");
+                var el;
+                el = $("#user-area");
+                el.html('');
+                el.append("<li><a href=\"#/profile\">Profile</a></li>");
+                return el.append("<li><a href=\"javascript:navigator.id.logout();\">Logout</a></li>");
               },
               error: function(res) {
                 return $("#user-area").append(res.error);
@@ -33,7 +34,7 @@
               url: 'user/logout',
               success: function(res) {
                 $("#user-area").html('');
-                return $("#user-area").append('<a href="javascript:navigator.id.request();">Login</a>');
+                return $("#user-area").append('<li><a href="javascript:navigator.id.request();">Login</a></li>');
               },
               error: function(res) {}
             });

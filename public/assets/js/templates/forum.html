@@ -1,14 +1,16 @@
-<div id="chid-forums">
+<div id="chid-forums" class="row">
 </div>
 
-<div id="threads">
- <a href="#/forum/<%= forumID %>/thread/new">New Thread</a>
- <% if(_.size(threads) > 0){ %>
-  <table>
+<div id="threads" class="row">
+  <div class="forum-nav columns twelve">
+   <a class="small button" href="#/forum/<%= forumID %>/thread/new">New Thread</a>
+  </div>
+  <table class="twelve">
     <thead>
       <th>Name</th>
       <th>Last Update</th>
     </thead>
+  <% if(_.size(threads) > 0){ %>
     <tbody>
     <% _.each(threads, function(thread){ %>
       <tr class="thread">
@@ -17,8 +19,12 @@
       </tr>
     <% }) %>
     </tbody>
+  <% }else{ %>
+    <tr>
+      <td colspan="2">
+        No Thread in this forum
+      </td>
+    </tr>
+  <% } %>
   </table>
-<% }else{ %>
-No Thread in this forum
-<% } %>
 </div>

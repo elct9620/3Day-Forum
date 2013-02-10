@@ -27,7 +27,7 @@
         });
         return this.posts.on('reset', function(event) {
           return this.each(function(post) {
-            return $("#posts").append("<div>" + (post.get('content')) + "</div>");
+            return $("#posts").append("<div class=\"row\"><div class=\"columns two\"></div><div class=\"columns ten\">" + (post.get('content')) + "</div></div>");
           });
         });
       },

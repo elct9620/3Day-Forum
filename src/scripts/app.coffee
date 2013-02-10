@@ -17,10 +17,10 @@ define ['jquery', 'backbone', 'persona', 'router', 'collections/Forums'], ($, Ba
             url: 'user/login',
             data: {assertion: assertion},
             success: (res)->
-              $("#user-area").html('');
-              $("#user-area").append "Hello, #{res.nickname}"
-              $("#user-area").append "<img src=\"http://www.gravatar.com/avatar/#{res.gavatar}\" alt=\"#{res.nickname}\" />"
-              $("#user-area").append "<a href=\"javascript:navigator.id.logout();\">Logout</a>"
+              el = $("#user-area")
+              el.html('');
+              el.append "<li><a href=\"#/profile\">Profile</a></li>"
+              el.append "<li><a href=\"javascript:navigator.id.logout();\">Logout</a></li>"
 
             error: (res)->
               $("#user-area").append res.error
@@ -33,7 +33,7 @@ define ['jquery', 'backbone', 'persona', 'router', 'collections/Forums'], ($, Ba
             url: 'user/logout',
             success: (res) ->
               $("#user-area").html('');
-              $("#user-area").append '<a href="javascript:navigator.id.request();">Login</a>'
+              $("#user-area").append '<li><a href="javascript:navigator.id.request();">Login</a></li>'
 
             error: (res) ->
               # Do nothing

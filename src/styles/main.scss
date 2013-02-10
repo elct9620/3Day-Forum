@@ -1,3 +1,24 @@
 
 // Import Normalize.css
-@import "normalize/normalize";
+//@import "normalize/normalize";
+
+@import "settings";
+@import "foundation";
+
+// Main Frame
+#main-frame {
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+// Forum Nav
+.forum-nav {
+  text-align: right;
+
+  margin: 0.5em auto;
+}
+
+// Post
+#posts, #create-post, #create-thread {
+  margin-top: 1em;
+}
