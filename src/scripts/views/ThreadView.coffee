@@ -1,4 +1,4 @@
-define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts', 'text!templates/thread.html'], ($, _, Backbone, Thread, Posts, mainTemplate) ->
+define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts', 'text!templates/thread.html', 'text!templates/post.html'], ($, _, Backbone, Thread, Posts, mainTemplate, postTemplate) ->
 
   Backbone.View.extend {
     el: '#main-frame',
@@ -24,7 +24,9 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts'
 
       @.posts.on 'reset', (event) ->
         @.each (post) ->
-          $("#posts").append("<div class=\"row\"><div class=\"columns two\"></div><div class=\"columns ten\">#{post.get('content')}</div></div>")
+          $("#posts").append(_.template(postTemplate, {
+            content: post.get('content')
+          }))
 
     new_post: (e) ->
       content_el = $("#create-post textarea[name=content]")
@@ -38,10 +40,17 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts'
         verify = false
 
       if verify
-        @.posts.create {
+        post = @.posts.create {
           content: content,
           threadID: @.id
         }
+
+        content_el.val('');
+
+        post.on "sync", (event) ->
+          $("#posts").append(_.template(postTemplate, {
+            content: @.get('content')
+          }))
 
       e.preventDefault()
 

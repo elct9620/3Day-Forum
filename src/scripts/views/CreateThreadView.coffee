@@ -1,4 +1,4 @@
-define ['jquery', 'underscore', 'backbone', 'collections/Threads', 'text!templates/create_thread.html'], ($, _, Backbone, Threads, mainTemplate) ->
+define ['jquery', 'underscore', 'backbone', 'collections/Threads', 'text!templates/create_thread.html', 'router'], ($, _, Backbone, Threads, mainTemplate) ->
 
   Backbone.View.extend {
     el: '#main-frame',
@@ -9,6 +9,7 @@ define ['jquery', 'underscore', 'backbone', 'collections/Threads', 'text!templat
 
     initialize: (options)->
       @.forumID = options.forumID
+      @.router = options.router
 
       this.$el.html(_.template(mainTemplate, {forumID: @.forumID}))
 
@@ -22,20 +23,25 @@ define ['jquery', 'underscore', 'backbone', 'collections/Threads', 'text!templat
       verify = true
 
       if subject is "undefined" or subject.length <= 0
-        subject_el.addClass 'warn'
+        subject_el.addClass 'error'
         verify = false
 
       if content is "undefined" or content.length <= 0
-        content_el.addClass 'warn'
+        content_el.addClass 'error'
         verify = false
 
       if verify
         threads = new Threads
-        threads.create {
+        thread = threads.create {
           subject: subject
           content: content
           forumID: @.forumID
         }
+
+        self = @
+
+        thread.on "sync", (event) ->
+          self.router.navigate "thread/#{@.get('id')}", {trigger: true}
 
       e.preventDefault()
   }

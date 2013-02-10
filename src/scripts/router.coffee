@@ -10,17 +10,17 @@ define ['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/Threa
 
     index: ->
       MainView =  require('views/MainView')
-      new MainView
+      @.currentView = new MainView
 
     forum: (id)->
       ForumView = require('views/ForumView')
-      new ForumView {id: id}
+      @.currentView = new ForumView {id: id}
 
     new_thread: (forumID)->
       CreateThreadView = require('views/CreateThreadView')
-      new CreateThreadView {forumID: forumID}
+      @.currentView = new CreateThreadView {forumID: forumID, router: @}
 
     thread: (id) ->
       ThreadView = require('views/ThreadView')
-      new ThreadView {id: id}
+      @.currentView = new ThreadView {id: id}
   }

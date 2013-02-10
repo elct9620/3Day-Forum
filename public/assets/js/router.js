@@ -12,26 +12,27 @@
       index: function() {
         var MainView;
         MainView = require('views/MainView');
-        return new MainView;
+        return this.currentView = new MainView;
       },
       forum: function(id) {
         var ForumView;
         ForumView = require('views/ForumView');
-        return new ForumView({
+        return this.currentView = new ForumView({
           id: id
         });
       },
       new_thread: function(forumID) {
         var CreateThreadView;
         CreateThreadView = require('views/CreateThreadView');
-        return new CreateThreadView({
-          forumID: forumID
+        return this.currentView = new CreateThreadView({
+          forumID: forumID,
+          router: this
         });
       },
       thread: function(id) {
         var ThreadView;
         ThreadView = require('views/ThreadView');
-        return new ThreadView({
+        return this.currentView = new ThreadView({
           id: id
         });
       }

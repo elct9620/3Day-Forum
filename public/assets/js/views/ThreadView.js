@@ -1,6 +1,6 @@
 (function() {
 
-  define(['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts', 'text!templates/thread.html'], function($, _, Backbone, Thread, Posts, mainTemplate) {
+  define(['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts', 'text!templates/thread.html', 'text!templates/post.html'], function($, _, Backbone, Thread, Posts, mainTemplate, postTemplate) {
     return Backbone.View.extend({
       el: '#main-frame',
       events: {
@@ -27,12 +27,14 @@
         });
         return this.posts.on('reset', function(event) {
           return this.each(function(post) {
-            return $("#posts").append("<div class=\"row\"><div class=\"columns two\"></div><div class=\"columns ten\">" + (post.get('content')) + "</div></div>");
+            return $("#posts").append(_.template(postTemplate, {
+              content: post.get('content')
+            }));
           });
         });
       },
       new_post: function(e) {
-        var content, content_el, verify;
+        var content, content_el, post, verify;
         content_el = $("#create-post textarea[name=content]");
         content = content_el.val();
         verify = true;
@@ -41,9 +43,15 @@
           verify = false;
         }
         if (verify) {
-          this.posts.create({
+          post = this.posts.create({
             content: content,
             threadID: this.id
+          });
+          content_el.val('');
+          post.on("sync", function(event) {
+            return $("#posts").append(_.template(postTemplate, {
+              content: this.get('content')
+            }));
           });
         }
         return e.preventDefault();
