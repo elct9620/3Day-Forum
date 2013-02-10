@@ -1,7 +1,11 @@
 <?php
 
 // Home
-$app->get('/', array('\Aotoki\HomeController', 'home'));
+$app->get('/', array('\Aotoki\HomeController', 'home'))->name('home');
+
+// Authorize
+$app->post('/user/login', array('\Aotoki\UserController', 'login'));
+$app->get('/user/logout', array('\Aotoki\UserController', 'logout'));
 
 //API::Forum
 $app->get('/api/forums', array('\Aotoki\Api\ForumController', 'getForums'));

@@ -67,6 +67,9 @@ try {
 
 unset($server); // Release
 
+// Enable Session
+session_start();
+
 // Load Routers
 include 'router.php';
 

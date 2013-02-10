@@ -10,6 +10,9 @@ require.config {
     underscore: {
       deps: ['jquery'],
       exports: "_"
+    },
+    persona: {
+      exports: "navigator"
     }
   },
 
@@ -21,7 +24,9 @@ require.config {
     text: 'lib/requirejs-text/text',
 
     underscore: 'lib/underscore/underscore-min',
-    backbone: 'lib/backbone/backbone-min'
+    backbone: 'lib/backbone/backbone-min',
+
+    persona: 'https://login.persona.org/include'
   }
 }
 

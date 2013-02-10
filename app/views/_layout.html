@@ -29,6 +29,11 @@
         {% block header %}
           <h1>{{site_name}}</h1>
         {% endblock %}
+          <section id="user-area">
+            {% block user_area %}
+              <a href="javascript:navigator.id.request();">Login</a>
+            {% endblock %}
+          </section>
         </header>
 
         <div id="main-frame">
