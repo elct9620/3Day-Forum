@@ -21,7 +21,8 @@
         self = this;
         return threads.on('reset', function(event) {
           return self.$el.html(_.template(mainTemplate, {
-            threads: this.models
+            threads: this.models,
+            forumID: self.id
           }));
         });
       }

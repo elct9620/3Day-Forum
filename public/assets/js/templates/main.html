@@ -1,5 +1,12 @@
-<% _.each(forums, function(forum){ %>
-<ul>
-  <li><a href="#/forum/<%= forum.get('id') %>"><%= forum.get('name') %></a></li>
-</ul>
-<% }) %>
+<table>
+  <thead>
+    <th>Name</th>
+  </thead>
+  <tbody>
+  <% _.each(forums, function(forum){ %>
+    <tr>
+      <td><a href="#/forum/<%= forum.get('id') %>"><%= forum.get('name') %></a></td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>

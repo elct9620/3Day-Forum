@@ -20,7 +20,7 @@ class Thread extends \BaseMongoRecord {
 
   public static function getThreads($forumID, $page = 1)
   {
-    $threads = self::find(array('forum' => new \MongoId($forumID)));
+    $threads = self::find(array('forum' => new \MongoId($forumID)), array('sort' => array('updated_at' => -1)));
 
     if(count($threads) <= 0) {
       return false;
@@ -35,7 +35,7 @@ class Thread extends \BaseMongoRecord {
         'content' => $thread->content,
         'author' => User::getNickname($thread->author),
         'created_at' => $thread->created_at,
-        'updated_at' => $thread->updated_at
+        'updated_at' => date("Y-m-d H:i:s", $thread->updated_at)
       ));
     }
 

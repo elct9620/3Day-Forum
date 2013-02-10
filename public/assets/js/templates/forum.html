@@ -2,12 +2,22 @@
 </div>
 
 <div id="threads">
+ <a href="#/forum/<%= forumID %>/thread/new">New Thread</a>
  <% if(_.size(threads) > 0){ %>
-  <% _.each(threads, function(thread){ %>
-    <div class="thread">
-      <a href="#/thread/<%= thread.get('id') %>"><%= thread.get('subject') %></a>
-    </div>
-  <% }) %>
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Last Update</th>
+    </thead>
+    <tbody>
+    <% _.each(threads, function(thread){ %>
+      <tr class="thread">
+        <td><a href="#/thread/<%= thread.get('id') %>"><%= thread.get('subject') %></a></td>
+        <td><%= thread.get('updated_at') %></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>
 <% }else{ %>
 No Thread in this forum
 <% } %>

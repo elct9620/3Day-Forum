@@ -16,5 +16,5 @@ define ['jquery', 'underscore', 'backbone', 'collections/Forums', 'collections/T
       self = @
 
       threads.on 'reset', (event) ->
-        self.$el.html(_.template(mainTemplate, {threads: @.models}))
+        self.$el.html(_.template(mainTemplate, {threads: @.models, forumID: self.id}))
   }
