@@ -1,11 +1,12 @@
-define ['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/ThreadView', 'views/CreateThreadView'], (Backbone, require) ->
+define ['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/ThreadView', 'views/CreateThreadView', 'views/ProfileView'], (Backbone, require) ->
 
   Router = Backbone.Router.extend {
     routes: {
       "": "index",
       "forum/:id": "forum",
       "forum/:forumID/thread/new": "new_thread",
-      "thread/:id": "thread"
+      "thread/:id": "thread",
+      "profile": "profile"
     }
 
     index: ->
@@ -23,4 +24,8 @@ define ['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/Threa
     thread: (id) ->
       ThreadView = require('views/ThreadView')
       @.currentView = new ThreadView {id: id}
+
+    profile: ->
+      ProfileView = require('views/ProfileView')
+      @.currentView = new ProfileView {router: @}
   }

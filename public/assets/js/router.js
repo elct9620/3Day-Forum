@@ -1,13 +1,14 @@
 (function() {
 
-  define(['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/ThreadView', 'views/CreateThreadView'], function(Backbone, require) {
+  define(['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/ThreadView', 'views/CreateThreadView', 'views/ProfileView'], function(Backbone, require) {
     var Router;
     return Router = Backbone.Router.extend({
       routes: {
         "": "index",
         "forum/:id": "forum",
         "forum/:forumID/thread/new": "new_thread",
-        "thread/:id": "thread"
+        "thread/:id": "thread",
+        "profile": "profile"
       },
       index: function() {
         var MainView;
@@ -34,6 +35,13 @@
         ThreadView = require('views/ThreadView');
         return this.currentView = new ThreadView({
           id: id
+        });
+      },
+      profile: function() {
+        var ProfileView;
+        ProfileView = require('views/ProfileView');
+        return this.currentView = new ProfileView({
+          router: this
         });
       }
     });
