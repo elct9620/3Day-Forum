@@ -22,7 +22,7 @@ class Forum extends \BaseMongoRecord {
       $id = new \MongoId($parent);
     }
 
-    $forums = Forum::find(array('parent' => $id));
+    $forums = self::find(array('parent' => $id));
 
     if(count($forums) <= 0) {
       return false;
@@ -41,9 +41,14 @@ class Forum extends \BaseMongoRecord {
     return $data;
   }
 
+  public static function exists($forumID)
+  {
+    return count(self::findOne(array('_id' => new \MongoId($forumID)))) === 1;
+  }
+
   public static function validatesSlug($slug)
   {
-    $forums = Forum::find(array('slug' => $slug));
+    $forums = self::find(array('slug' => $slug));
 
     if(count($forums) > 0) {
       return false;

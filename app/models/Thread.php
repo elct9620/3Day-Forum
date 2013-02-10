@@ -10,8 +10,8 @@
 namespace Aotoki;
 
 class Thread extends \BaseMongoRecord {
-  protected $id;
   protected $subject;
+  protected $content;
   protected $author;
   protected $forum;
 
@@ -32,7 +32,8 @@ class Thread extends \BaseMongoRecord {
       array_push($data, array(
         'id' => $thread->_id,
         'subject' => $thread->subject,
-        'author' => $thread->author,
+        'content' => $thread->content,
+        'author' => User::getNickname($thread->author),
         'created_at' => $thread->created_at,
         'updated_at' => $thread->updated_at
       ));
@@ -52,10 +53,47 @@ class Thread extends \BaseMongoRecord {
     return array(
        'id' => $thread->_id,
         'subject' => $thread->subject,
-        'author' => $thread->author,
-        'created_at' => $thread->created_at,
+        'content' => $thread->content,
+        'author' => User::getNickname($thread->author),
         'updated_at' => $thread->updated_at
     );
+  }
+
+  public static function create($forumID, $subject, $content, $author)
+  {
+    if(!Forum::exists($forumID)) {
+      return array(
+        'error' => 400,
+        'message' => 'Forum doesn\'t exists, ' . $forumID
+      );
+    }
+
+    $thread = new Thread;
+    $thread->forum = new \MongoId($forumID);
+    $thread->subject = $subject;
+    $thread->content = $content;
+    $thread->author = $author;
+
+    if(!$thread->save()) {
+      return array(
+        'error' => 500,
+        'message' => "Create thread failed!"
+      );
+    }
+
+    return array(
+      'id' => $thread->_id,
+      'forum' => (string) $thread->forum,
+      'subject' => $thread->subject,
+      'content' => $thread->content,
+      'author' => User::getNickname($thread->author),
+      'updated_at' => $thread->updated_at
+    );
+  }
+
+  public static function exists($threadID)
+  {
+    return count(self::findOne(array('_id' => new \MongoId($threadID)))) === 1;
   }
 
   public function afterNew()

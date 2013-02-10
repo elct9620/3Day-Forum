@@ -13,7 +13,6 @@ class Post extends \BaseMongoRecord {
   protected $content;
   protected $author;
   protected $thread;
-  protected $master_post;
 
   protected $created_at;
   protected $updated_at;
@@ -26,33 +25,49 @@ class Post extends \BaseMongoRecord {
       return false;
     }
 
-    $master_post = false;
     $data = array();
 
     foreach($posts as $post) {
-      $new_data = array(
+      array_push($data, array(
         'id' => $post->_id,
         'content' => $post->content,
-        'author' => $post->author,
-        'master_post' => (bool) $post->master_post,
-        'created_at' => $post->created_at,
+        'author' => User::getNickname($post->author),
         'updated_at' => $post->updated_at
-      );
-
-      if(!$master_post && $post->master_post) {
-        $master_post = $new_data;
-        continue;
-      }
-
-      array_push($data, $new_data);
-    }
-
-    if($master_post) {
-      array_unshift($data, $master_post);
+      ));
     }
 
     return $data;
 
+  }
+
+  public static function create($threadID, $content, $author)
+  {
+
+    if(!Thread::exists($threadID)) {
+      return array(
+        'error' => 400,
+        'message' => 'Thread doesn\'t exists.'
+      );
+    }
+
+    $post = new Post;
+    $post->thread = new \MongoId($threadID);
+    $post->content = $content;
+    $post->author = $author;
+
+    if(!$post->save()) {
+      return array(
+        'error' => 500,
+        'message' => 'Create post failed.'
+      );
+    }
+
+    return array(
+      'id' => $post->_id,
+      'content' => $post->content,
+      'author' => User::getNickname($post->author),
+      'updated_at' => $post->updated_at
+    );
   }
 
   public function afterNew()

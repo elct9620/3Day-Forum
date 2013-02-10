@@ -22,6 +22,64 @@ class BaseController {
     $res = $app->response();
     $res['Content-Type'] = 'application/json';
 
+    if(isset($data['error'])) {
+      $app->response()->status((int) $data['error']);
+      $data = array(
+        'error' => $data['message']
+      );
+    }
+
     echo json_encode($data);
   }
+
+  public static function authorizeUser()
+  {
+    $app = self::getApp();
+    $req = $app->request();
+
+    $authorized = false;
+
+    if(isset($_SESSION['email'])) {
+      $user = \Aotoki\User::findOne(array('email' => $_SESSION['email']));
+
+      if(count($user) === 1) {
+        $authorized = true;
+      }
+
+    }
+
+    if($req->isAjax()) {
+
+      if(!$authorized) {
+        $app->response()->status(403);
+        self::respondJSON(array(
+          'error' => 'Must Login First'
+        ));
+        $app->stop();
+      }
+
+    } else {
+      if(!$authorized) {
+        $app->flush('error', 'Must Login First');
+        $app->reidrect($app->urlFor('home'));
+      }
+    }
+
+  }
+
+  public static function currentUser()
+  {
+    if(isset($_SESSION['email'])) {
+
+      $user = \Aotoki\User::findOne(array('email' => $_SESSION['email']));
+
+      if(count($user) === 1) {
+        return $user;
+      }
+
+    }
+
+    return false;
+  }
+
 }

@@ -23,10 +23,6 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts'
 
       posts.on 'reset', (event) ->
         @.each (post) ->
-          element = $("#posts")
+          $("#posts").append("<div>#{post.get('content')}</div>")
 
-          if post.get('master_post')
-            element = $("#topic")
-
-          element.append("<div>#{post.get('content')}</div>")
   }

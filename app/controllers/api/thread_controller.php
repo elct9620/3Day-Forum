@@ -28,9 +28,21 @@ class ThreadController extends \Aotoki\BaseController {
     self::respondJSON(\Aotoki\Thread::getThread($threadID));
   }
 
-  public static function create($forumID)
+  public static function create()
   {
+    $app = self::getApp();
+    $req = $app->request();
+    $user = self::currentUser();
 
+    // Backbone JSON Parse
+    $data = json_decode($req->getBody());
+
+    $forumID = $data->forumID;
+    $subject = htmlspecialchars($data->subject);
+    $content = htmlspecialchars($data->content);
+    $author = $user->email;
+
+    self::respondJSON(\Aotoki\Thread::create($forumID, $subject, $content, $author));
   }
 
   public static function update($threadID)

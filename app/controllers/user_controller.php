@@ -55,6 +55,7 @@ class UserController extends BaseController {
           'gavatar' => md5(strtolower(trim($user->email)))
         );
       } else {
+        $app->response()->status(400);
         $data = array(
           'error' => 'Login Failed'
         );

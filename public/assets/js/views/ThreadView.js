@@ -24,12 +24,7 @@
         });
         return posts.on('reset', function(event) {
           return this.each(function(post) {
-            var element;
-            element = $("#posts");
-            if (post.get('master_post')) {
-              element = $("#topic");
-            }
-            return element.append("<div>" + (post.get('content')) + "</div>");
+            return $("#posts").append("<div>" + (post.get('content')) + "</div>");
           });
         });
       }
