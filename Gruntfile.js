@@ -36,7 +36,10 @@ module.exports = function( grunt ) {
           sass_dir: 'src/styles',
           images_dir: 'public/assets/images',
           javascripts_dir: 'public/assets/js',
-          force: true
+          force: true,
+          require: [
+            'zurb-foundation'
+          ]
         }
       }
     },

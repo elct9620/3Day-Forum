@@ -4,3 +4,7 @@
 </div>
 <div id="posts">
 </div>
+<form id="create-post" method="POST" action="thread/<%= threadID %>/post/new">
+  <textarea name="content"></textarea>
+  <button type="submit">Reply</button>
+</form>
