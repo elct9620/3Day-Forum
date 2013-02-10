@@ -56,7 +56,7 @@ $server = "mongodb://";
 if(DB_USER && DB_PASS) {
   $server .= DB_USER . ':' . DB_PASS . '@';
 }
-$server .= DB_HOST . '/';
+$server .= DB_HOST . '/' . DB_NAME;
 
 try {
   BaseMongoRecord::$connection = new MongoClient($server);
