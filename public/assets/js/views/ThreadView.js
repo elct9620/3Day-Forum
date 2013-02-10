@@ -16,7 +16,10 @@
         self = this;
         thread.on('change', function(event) {
           self.$el.html(_.template(mainTemplate, {
-            thread: this,
+            subject: thread.get('subject'),
+            content: thread.get('content'),
+            author: thread.get('author').nickname,
+            gavatar: thread.get('author').gavatar,
             threadID: this.id
           }));
           return self.posts.fetch({
@@ -28,7 +31,9 @@
         return this.posts.on('reset', function(event) {
           return this.each(function(post) {
             return $("#posts").append(_.template(postTemplate, {
-              content: post.get('content')
+              content: post.get('content'),
+              author: post.get('author').nickname,
+              gavatar: post.get('author').gavatar
             }));
           });
         });
@@ -50,7 +55,9 @@
           content_el.val('');
           post.on("sync", function(event) {
             return $("#posts").append(_.template(postTemplate, {
-              content: this.get('content')
+              content: this.get('content'),
+              author: this.get('author').nickname,
+              gavatar: this.get('author').gavatar
             }));
           });
         }

@@ -13,7 +13,7 @@ class User extends \BaseMongoRecord {
   protected $email;
   protected $nickname;
 
-  public static function getNickname($query, $id = false)
+  public static function getUser($query, $id = false)
   {
     $user = null;
     if($id) {
@@ -26,7 +26,10 @@ class User extends \BaseMongoRecord {
       return false;
     }
 
-    return $user->nickname;
+    return array(
+      'nickname' => $user->nickname,
+      'gavatar' => md5(strtolower(trim($user->email)))
+    );
   }
 
 }

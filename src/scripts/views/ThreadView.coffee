@@ -17,7 +17,13 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts'
       self = @
 
       thread.on 'change', (event) ->
-        self.$el.html(_.template(mainTemplate, {thread: @, threadID: @.id}))
+        self.$el.html(_.template(mainTemplate, {
+          subject: thread.get('subject'),
+          content: thread.get('content'),
+          author: thread.get('author').nickname,
+          gavatar: thread.get('author').gavatar,
+          threadID: @.id
+        }))
 
         self.posts.fetch({data: {threadID: @.id}})
 
@@ -25,7 +31,9 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts'
       @.posts.on 'reset', (event) ->
         @.each (post) ->
           $("#posts").append(_.template(postTemplate, {
-            content: post.get('content')
+            content: post.get('content'),
+            author: post.get('author').nickname,
+            gavatar: post.get('author').gavatar
           }))
 
     new_post: (e) ->
@@ -49,7 +57,9 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts'
 
         post.on "sync", (event) ->
           $("#posts").append(_.template(postTemplate, {
-            content: @.get('content')
+            content: @.get('content'),
+            author: @.get('author').nickname,
+            gavatar: @.get('author').gavatar
           }))
 
       e.preventDefault()

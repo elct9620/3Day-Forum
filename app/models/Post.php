@@ -31,7 +31,7 @@ class Post extends \BaseMongoRecord {
       array_push($data, array(
         'id' => $post->_id,
         'content' => $post->content,
-        'author' => User::getNickname($post->author),
+        'author' => User::getUser($post->author),
         'updated_at' => $post->updated_at
       ));
     }
@@ -65,7 +65,7 @@ class Post extends \BaseMongoRecord {
     return array(
       'id' => $post->_id,
       'content' => $post->content,
-      'author' => User::getNickname($post->author),
+      'author' => User::getUser($post->author),
       'updated_at' => $post->updated_at
     );
   }

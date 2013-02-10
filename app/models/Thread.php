@@ -33,7 +33,7 @@ class Thread extends \BaseMongoRecord {
         'id' => $thread->_id,
         'subject' => $thread->subject,
         'content' => $thread->content,
-        'author' => User::getNickname($thread->author),
+        'author' => User::getUser($thread->author),
         'created_at' => $thread->created_at,
         'updated_at' => date("Y-m-d H:i:s", $thread->updated_at)
       ));
@@ -54,7 +54,7 @@ class Thread extends \BaseMongoRecord {
        'id' => $thread->_id,
         'subject' => $thread->subject,
         'content' => $thread->content,
-        'author' => User::getNickname($thread->author),
+        'author' => User::getUser($thread->author),
         'updated_at' => $thread->updated_at
     );
   }
@@ -86,7 +86,7 @@ class Thread extends \BaseMongoRecord {
       'forum' => (string) $thread->forum,
       'subject' => $thread->subject,
       'content' => $thread->content,
-      'author' => User::getNickname($thread->author),
+      'author' => User::getUser($thread->author),
       'updated_at' => $thread->updated_at
     );
   }

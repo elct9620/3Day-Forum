@@ -1,9 +1,17 @@
 <div id="topic" class="row">
   <div class="columns two">
+    <div class="row">
+      <div class="columns twelve th">
+        <img class="avatar" src="http://www.gravatar.com/avatar/<%= gavatar %>&s=200" alt="<%= author %>" />
+      </div>
+      <div class="columns twelve">
+        <strong class="nickname"><%= author %></strong>
+      </div>
+    </div>
   </div>
   <div class="columns ten">
-    <h2><%= thread.get('subject') %></h2>
-    <%= thread.get('content') %>
+    <h2><%= subject %></h2>
+    <%= content %>
   </div>
 </div>
 <div id="posts">
