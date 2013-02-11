@@ -46,7 +46,8 @@ class PostController extends \Aotoki\BaseController {
 
   public static function destroy($postID)
   {
-
+    $user = self::currentUser();
+    self::respondJSON(\Aotoki\Post::delete($postID, $user));
   }
 
 }

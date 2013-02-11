@@ -5,10 +5,11 @@
     return App = (function() {
 
       function App() {
-        new Router;
+        var router;
+        router = new Router;
         Backbone.history.start();
         navigator.id.watch({
-          loggedInUser: null,
+          loggedInUser: router.loggedInUser,
           onlogin: function(assertion) {
             return $.ajax({
               type: 'POST',
@@ -21,7 +22,8 @@
                 el = $("#user-area");
                 el.html('');
                 el.append("<li><a href=\"#/profile\">Profile</a></li>");
-                return el.append("<li><a href=\"javascript:navigator.id.logout();\">Logout</a></li>");
+                el.append("<li><a href=\"javascript:navigator.id.logout();\">Logout</a></li>");
+                return router.loggedInUser = res.email;
               },
               error: function(res) {
                 return $("#user-area").append(res.error);

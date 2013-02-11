@@ -54,6 +54,7 @@ class Thread extends \BaseMongoRecord {
        'id' => $thread->_id,
         'subject' => $thread->subject,
         'content' => $thread->content,
+        'forum' => (string) $thread->forum,
         'author' => User::getUser($thread->author),
         'updated_at' => $thread->updated_at
     );
@@ -89,6 +90,38 @@ class Thread extends \BaseMongoRecord {
       'author' => User::getUser($thread->author),
       'updated_at' => $thread->updated_at
     );
+  }
+
+  public static function delete($threadID, $user)
+  {
+    $thread = self::findOne(array('_id' => new \MongoId($threadID)));
+
+    if(count($thread) !== 1) {
+      return array(
+        'error' => 404,
+        'message' => "Thread not found"
+      );
+    }
+
+    if(!(bool)$user->is_admin && $thread->author != $user->email) {
+      return array(
+        'error' => 403,
+        'message' => "You can't delete thread"
+      );
+    }
+
+    $thread->destroy();
+    $posts = Post::find(array('thread' => new \MongoId($threadID)));
+    $posts_count = count($posts);
+    foreach($posts as $post) {
+      $post->destroy();
+    }
+
+    return array(
+      'forum' => (string) $thread->forum,
+      'posts' => $posts_count
+    );
+
   }
 
   public static function exists($threadID)

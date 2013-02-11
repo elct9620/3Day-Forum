@@ -1,39 +1,45 @@
-define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts', 'text!templates/thread.html', 'text!templates/post.html'], ($, _, Backbone, Thread, Posts, mainTemplate, postTemplate) ->
+define ['jquery', 'underscore', 'backbone', 'models/Thread', 'models/Post', 'collections/Posts', 'text!templates/thread.html', 'text!templates/post.html'], ($, _, Backbone, Thread, Post, Posts, mainTemplate, postTemplate) ->
 
   Backbone.View.extend {
     el: '#main-frame',
 
     events: {
-      "click #create-post button[type=submit]": "new_post"
+      "click #create-post button[type=submit]": "new_post",
+      "click a.delete-thread": "delete_thread",
+      "click a.delete": "delete_post"
     }
 
-    initialize: ()->
+    initialize: (options)->
 
-      thread = new Thread({id: @.id})
-      thread.fetch()
+      @.router = options.router
+
+      @.thread = new Thread({id: @.id})
+      @.thread.fetch()
 
       @.posts = new Posts
 
       self = @
 
-      thread.on 'change', (event) ->
+      @.thread.on 'change', (event) ->
         self.$el.html(_.template(mainTemplate, {
-          subject: thread.get('subject'),
-          content: thread.get('content'),
-          author: thread.get('author').nickname,
-          gavatar: thread.get('author').gavatar,
-          threadID: @.id
+          subject: self.thread.get('subject'),
+          content: self.thread.get('content'),
+          author: self.thread.get('author').nickname,
+          gavatar: self.thread.get('author').gavatar,
+          threadID: @.id,
+          is_author: (self.router.loggedInUser == self.thread.get('author').email)
         }))
 
         self.posts.fetch({data: {threadID: @.id}})
 
-
       @.posts.on 'reset', (event) ->
         @.each (post) ->
           $("#posts").append(_.template(postTemplate, {
+            id: post.get('id'),
             content: post.get('content'),
             author: post.get('author').nickname,
-            gavatar: post.get('author').gavatar
+            gavatar: post.get('author').gavatar,
+            is_author: (self.router.loggedInUser == post.get('author').email)
           }))
 
     new_post: (e) ->
@@ -55,13 +61,39 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts'
 
         content_el.val('');
 
+        self = @
+
         post.on "sync", (event) ->
           $("#posts").append(_.template(postTemplate, {
+            id: @.get('id'),
             content: @.get('content'),
             author: @.get('author').nickname,
-            gavatar: @.get('author').gavatar
+            gavatar: @.get('author').gavatar,
+            is_author: (self.router.loggedInUser == @.get('author').email)
           }))
 
       e.preventDefault()
 
+    delete_thread: (e) ->
+      self = @
+
+      @.thread.destroy()
+
+      @.thread.on "sync", (event) ->
+        self.router.navigate "forum/#{self.thread.get('forum')}", {trigger: true}
+
+      e.preventDefault()
+
+    delete_post: (e) ->
+
+      id = $(e.target).attr('data-id')
+      post_el = $("#post-id-#{id}")
+
+      post = new Post({id: id})
+      post.destroy()
+
+      post.on "sync", (event) ->
+        post_el.remove()
+
+      e.preventDefault()
   }

@@ -10,6 +10,12 @@
         "thread/:id": "thread",
         "profile": "profile"
       },
+      initialize: function(options) {
+        if (options == null) {
+          options = {};
+        }
+        return this.loggedInUser = options.email || null;
+      },
       index: function() {
         var MainView;
         MainView = require('views/MainView');
@@ -34,7 +40,8 @@
         var ThreadView;
         ThreadView = require('views/ThreadView');
         return this.currentView = new ThreadView({
-          id: id
+          id: id,
+          router: this
         });
       },
       profile: function() {

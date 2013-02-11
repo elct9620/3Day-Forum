@@ -1,26 +1,30 @@
 (function() {
 
-  define(['jquery', 'underscore', 'backbone', 'models/Thread', 'collections/Posts', 'text!templates/thread.html', 'text!templates/post.html'], function($, _, Backbone, Thread, Posts, mainTemplate, postTemplate) {
+  define(['jquery', 'underscore', 'backbone', 'models/Thread', 'models/Post', 'collections/Posts', 'text!templates/thread.html', 'text!templates/post.html'], function($, _, Backbone, Thread, Post, Posts, mainTemplate, postTemplate) {
     return Backbone.View.extend({
       el: '#main-frame',
       events: {
-        "click #create-post button[type=submit]": "new_post"
+        "click #create-post button[type=submit]": "new_post",
+        "click a.delete-thread": "delete_thread",
+        "click a.delete": "delete_post"
       },
-      initialize: function() {
-        var self, thread;
-        thread = new Thread({
+      initialize: function(options) {
+        var self;
+        this.router = options.router;
+        this.thread = new Thread({
           id: this.id
         });
-        thread.fetch();
+        this.thread.fetch();
         this.posts = new Posts;
         self = this;
-        thread.on('change', function(event) {
+        this.thread.on('change', function(event) {
           self.$el.html(_.template(mainTemplate, {
-            subject: thread.get('subject'),
-            content: thread.get('content'),
-            author: thread.get('author').nickname,
-            gavatar: thread.get('author').gavatar,
-            threadID: this.id
+            subject: self.thread.get('subject'),
+            content: self.thread.get('content'),
+            author: self.thread.get('author').nickname,
+            gavatar: self.thread.get('author').gavatar,
+            threadID: this.id,
+            is_author: self.router.loggedInUser === self.thread.get('author').email
           }));
           return self.posts.fetch({
             data: {
@@ -31,15 +35,17 @@
         return this.posts.on('reset', function(event) {
           return this.each(function(post) {
             return $("#posts").append(_.template(postTemplate, {
+              id: post.get('id'),
               content: post.get('content'),
               author: post.get('author').nickname,
-              gavatar: post.get('author').gavatar
+              gavatar: post.get('author').gavatar,
+              is_author: self.router.loggedInUser === post.get('author').email
             }));
           });
         });
       },
       new_post: function(e) {
-        var content, content_el, post, verify;
+        var content, content_el, post, self, verify;
         content_el = $("#create-post textarea[name=content]");
         content = content_el.val();
         verify = true;
@@ -53,14 +59,41 @@
             threadID: this.id
           });
           content_el.val('');
+          self = this;
           post.on("sync", function(event) {
             return $("#posts").append(_.template(postTemplate, {
+              id: this.get('id'),
               content: this.get('content'),
               author: this.get('author').nickname,
-              gavatar: this.get('author').gavatar
+              gavatar: this.get('author').gavatar,
+              is_author: self.router.loggedInUser === this.get('author').email
             }));
           });
         }
+        return e.preventDefault();
+      },
+      delete_thread: function(e) {
+        var self;
+        self = this;
+        this.thread.destroy();
+        this.thread.on("sync", function(event) {
+          return self.router.navigate("forum/" + (self.thread.get('forum')), {
+            trigger: true
+          });
+        });
+        return e.preventDefault();
+      },
+      delete_post: function(e) {
+        var id, post, post_el;
+        id = $(e.target).attr('data-id');
+        post_el = $("#post-id-" + id);
+        post = new Post({
+          id: id
+        });
+        post.destroy();
+        post.on("sync", function(event) {
+          return post_el.remove();
+        });
         return e.preventDefault();
       }
     });

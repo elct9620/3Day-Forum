@@ -3,13 +3,13 @@ define ['jquery', 'backbone', 'persona', 'router', 'collections/Forums'], ($, Ba
   class App
     constructor: ->
       # Backbone Router
-      new Router
+      router = new Router
       #Backbone.history.start({pushState: true, root: '/3day-forum'})
       Backbone.history.start()
 
       # BorwserID (Persona)
       navigator.id.watch {
-        loggedInUser: null,
+        loggedInUser: router.loggedInUser,
 
         onlogin: (assertion) ->
           $.ajax {
@@ -21,6 +21,8 @@ define ['jquery', 'backbone', 'persona', 'router', 'collections/Forums'], ($, Ba
               el.html('');
               el.append "<li><a href=\"#/profile\">Profile</a></li>"
               el.append "<li><a href=\"javascript:navigator.id.logout();\">Logout</a></li>"
+
+              router.loggedInUser = res.email
 
             error: (res)->
               $("#user-area").append res.error

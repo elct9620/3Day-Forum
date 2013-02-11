@@ -9,6 +9,9 @@ define ['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/Threa
       "profile": "profile"
     }
 
+    initialize: (options = {}) ->
+      @.loggedInUser = options.email || null
+
     index: ->
       MainView =  require('views/MainView')
       @.currentView = new MainView
@@ -23,7 +26,7 @@ define ['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/Threa
 
     thread: (id) ->
       ThreadView = require('views/ThreadView')
-      @.currentView = new ThreadView {id: id}
+      @.currentView = new ThreadView {id: id, router: @}
 
     profile: ->
       ProfileView = require('views/ProfileView')

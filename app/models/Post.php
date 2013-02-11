@@ -70,6 +70,31 @@ class Post extends \BaseMongoRecord {
     );
   }
 
+  public static function delete($postID, $user)
+  {
+    $post = self::findOne(array("_id" => new \MongoId($postID)));
+
+    if(count($post) !== 1) {
+      return array(
+        'error' => 404,
+        'message' => "Post not found"
+      );
+    }
+
+    if(!(bool)$user->is_admin && ($user->email != $post->author)) {
+      return array(
+        'error' => 403,
+        'message' => "You can't delete post"
+      );
+    }
+
+    $post->destroy();
+
+    return array(
+      'thread' => (string) $post->thread
+    );
+  }
+
   public function afterNew()
   {
     $this->created_at = time();

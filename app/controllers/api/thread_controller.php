@@ -52,7 +52,8 @@ class ThreadController extends \Aotoki\BaseController {
 
   public static function destroy($threadID)
   {
-
+    $user = self::currentUser();
+    self::respondJSON(\Aotoki\Thread::delete($threadID, $user));
   }
 
 }

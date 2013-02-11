@@ -11,7 +11,14 @@
   </div>
   <div class="columns ten">
     <h2><%= subject %></h2>
-    <%= content %>
+    <p>
+      <%= content %>
+    </p>
+    <div class="meta">
+      <% if(is_author) { %>
+      <a href="#/thread/<%= threadID %>/delete" class="small button alert delete-thread">Delete</a>
+      <% } %>
+    </div>
   </div>
 </div>
 <div id="posts">
