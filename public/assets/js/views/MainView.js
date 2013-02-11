@@ -9,9 +9,10 @@
         forums.fetch();
         self = this;
         return forums.on('reset', function(event) {
-          return self.$el.html(_.template(mainTemplate, {
+          self.$el.html(_.template(mainTemplate, {
             forums: this.models
           }));
+          return $("#alert").toggle();
         });
       }
     });

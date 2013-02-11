@@ -12,4 +12,5 @@ define ['jquery', 'underscore', 'backbone', 'collections/Forums', 'text!template
 
       forums.on 'reset', (event) ->
         self.$el.html(_.template(mainTemplate, {forums: @.models}))
+        $("#alert").toggle()
   }

@@ -43,9 +43,19 @@
           </nav>
         </header>
 
-        <div id="main-frame">
-        {% block body %}
-        {% endblock %}
+
+        <div id="wrapper">
+          <div class="row">
+            <div class="columns twelve">
+              <div id="alert" class="alert-box">
+                Loading ...
+              </div>
+            </div>
+          </div>
+          <div id="main-frame">
+          {% block body %}
+          {% endblock %}
+        </div>
         </div>
 
         <footer id="footer" role="footer">
