@@ -20,6 +20,9 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'models/Post', 'col
 
       self = @
 
+      alert = $("#alert")
+      alert.text("Loading ...").toggle()
+
       @.thread.on 'change', (event) ->
         self.$el.html(_.template(mainTemplate, {
           subject: self.thread.get('subject'),
@@ -31,6 +34,7 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'models/Post', 'col
         }))
 
         self.posts.fetch({data: {threadID: @.id}})
+        alert.toggle()
 
       @.posts.on 'reset', (event) ->
         @.each (post) ->

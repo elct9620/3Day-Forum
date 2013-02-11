@@ -15,6 +15,10 @@ define ['jquery', 'underscore', 'backbone', 'collections/Forums', 'collections/T
 
       self = @
 
+      alert = $("#alert")
+      alert.text("Loading ...").toggle()
+
       threads.on 'reset', (event) ->
         self.$el.html(_.template(mainTemplate, {threads: @.models, forumID: self.id}))
+        alert.toggle()
   }

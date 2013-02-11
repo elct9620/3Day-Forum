@@ -9,7 +9,7 @@
         "click a.delete": "delete_post"
       },
       initialize: function(options) {
-        var self;
+        var alert, self;
         this.router = options.router;
         this.thread = new Thread({
           id: this.id
@@ -17,6 +17,8 @@
         this.thread.fetch();
         this.posts = new Posts;
         self = this;
+        alert = $("#alert");
+        alert.text("Loading ...").toggle();
         this.thread.on('change', function(event) {
           self.$el.html(_.template(mainTemplate, {
             subject: self.thread.get('subject'),
@@ -26,11 +28,12 @@
             threadID: this.id,
             is_author: (self.router.loggedInUser === self.thread.get('author').email) || self.router.is_admin
           }));
-          return self.posts.fetch({
+          self.posts.fetch({
             data: {
               threadID: this.id
             }
           });
+          return alert.toggle();
         });
         return this.posts.on('reset', function(event) {
           return this.each(function(post) {

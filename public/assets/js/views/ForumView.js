@@ -5,7 +5,7 @@
       el: '#main-frame',
       events: {},
       initialize: function() {
-        var forums, self, threads;
+        var alert, forums, self, threads;
         forums = new Forums;
         forums.fetch({
           data: {
@@ -19,11 +19,14 @@
           }
         });
         self = this;
+        alert = $("#alert");
+        alert.text("Loading ...").toggle();
         return threads.on('reset', function(event) {
-          return self.$el.html(_.template(mainTemplate, {
+          self.$el.html(_.template(mainTemplate, {
             threads: this.models,
             forumID: self.id
           }));
+          return alert.toggle();
         });
       }
     });

@@ -4,15 +4,17 @@
     return Backbone.View.extend({
       el: '#main-frame',
       initialize: function() {
-        var forums, self;
+        var alert, forums, self;
         forums = new Forums;
         forums.fetch();
         self = this;
+        alert = $("#alert");
+        alert.text("Loading ...").toggle();
         return forums.on('reset', function(event) {
           self.$el.html(_.template(mainTemplate, {
             forums: this.models
           }));
-          return $("#alert").toggle();
+          return alert.toggle();
         });
       }
     });

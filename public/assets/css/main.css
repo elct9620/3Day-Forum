@@ -6033,18 +6033,23 @@ table.hide-for-medium {
   }
 }
 /* line 9, ../../../src/styles/main.scss */
+#alert {
+  display: none;
+}
+
+/* line 14, ../../../src/styles/main.scss */
 #wrapper {
   margin-top: 2em;
   margin-bottom: 1em;
 }
 
-/* line 15, ../../../src/styles/main.scss */
+/* line 20, ../../../src/styles/main.scss */
 .forum-nav {
   text-align: right;
   margin: 0.5em auto;
 }
 
-/* line 22, ../../../src/styles/main.scss */
+/* line 27, ../../../src/styles/main.scss */
 #posts, #create-post, #create-thread, .post {
   margin-top: 1em;
 }

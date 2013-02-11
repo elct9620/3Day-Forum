@@ -10,7 +10,10 @@ define ['jquery', 'underscore', 'backbone', 'collections/Forums', 'text!template
 
       self = @
 
+      alert = $("#alert")
+      alert.text("Loading ...").toggle()
+
       forums.on 'reset', (event) ->
         self.$el.html(_.template(mainTemplate, {forums: @.models}))
-        $("#alert").toggle()
+        alert.toggle()
   }
