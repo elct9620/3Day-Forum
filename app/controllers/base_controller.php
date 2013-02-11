@@ -25,7 +25,7 @@ class BaseController {
     if(isset($data['error'])) {
       $app->response()->status((int) $data['error']);
       $data = array(
-        'error' => $data['message']
+        'error' => (string) $data['message']
       );
     }
 
