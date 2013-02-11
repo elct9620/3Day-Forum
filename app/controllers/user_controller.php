@@ -52,7 +52,8 @@ class UserController extends BaseController {
         $data = array(
           'email' => $user->email,
           'nickname' => $user->nickname,
-          'gavatar' => md5(strtolower(trim($user->email)))
+          'gavatar' => md5(strtolower(trim($user->email))),
+          'is_admin' => (bool) $user->is_admin
         );
       } else {
         $app->response()->status(400);

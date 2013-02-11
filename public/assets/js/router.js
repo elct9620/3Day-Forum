@@ -14,7 +14,8 @@
         if (options == null) {
           options = {};
         }
-        return this.loggedInUser = options.email || null;
+        this.loggedInUser = options.email || null;
+        return this.is_admin = options.is_admin || false;
       },
       index: function() {
         var MainView;

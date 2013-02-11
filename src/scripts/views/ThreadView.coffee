@@ -27,7 +27,7 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'models/Post', 'col
           author: self.thread.get('author').nickname,
           gavatar: self.thread.get('author').gavatar,
           threadID: @.id,
-          is_author: (self.router.loggedInUser == self.thread.get('author').email)
+          is_author: (self.router.loggedInUser == self.thread.get('author').email) || self.router.is_admin
         }))
 
         self.posts.fetch({data: {threadID: @.id}})
@@ -39,7 +39,7 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'models/Post', 'col
             content: post.get('content'),
             author: post.get('author').nickname,
             gavatar: post.get('author').gavatar,
-            is_author: (self.router.loggedInUser == post.get('author').email)
+            is_author: (self.router.loggedInUser == post.get('author').email) || self.router.is_admin
           }))
 
     new_post: (e) ->
@@ -69,7 +69,7 @@ define ['jquery', 'underscore', 'backbone', 'models/Thread', 'models/Post', 'col
             content: @.get('content'),
             author: @.get('author').nickname,
             gavatar: @.get('author').gavatar,
-            is_author: (self.router.loggedInUser == @.get('author').email)
+            is_author: (self.router.loggedInUser == @.get('author').email) || self.router.is_admin
           }))
 
       e.preventDefault()

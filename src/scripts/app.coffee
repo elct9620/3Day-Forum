@@ -23,6 +23,7 @@ define ['jquery', 'backbone', 'persona', 'router', 'collections/Forums'], ($, Ba
               el.append "<li><a href=\"javascript:navigator.id.logout();\">Logout</a></li>"
 
               router.loggedInUser = res.email
+              router.is_admin = res.is_admin
 
             error: (res)->
               $("#user-area").append res.error

@@ -24,7 +24,7 @@
             author: self.thread.get('author').nickname,
             gavatar: self.thread.get('author').gavatar,
             threadID: this.id,
-            is_author: self.router.loggedInUser === self.thread.get('author').email
+            is_author: (self.router.loggedInUser === self.thread.get('author').email) || self.router.is_admin
           }));
           return self.posts.fetch({
             data: {
@@ -39,7 +39,7 @@
               content: post.get('content'),
               author: post.get('author').nickname,
               gavatar: post.get('author').gavatar,
-              is_author: self.router.loggedInUser === post.get('author').email
+              is_author: (self.router.loggedInUser === post.get('author').email) || self.router.is_admin
             }));
           });
         });
@@ -66,7 +66,7 @@
               content: this.get('content'),
               author: this.get('author').nickname,
               gavatar: this.get('author').gavatar,
-              is_author: self.router.loggedInUser === this.get('author').email
+              is_author: (self.router.loggedInUser === this.get('author').email) || self.router.is_admin
             }));
           });
         }

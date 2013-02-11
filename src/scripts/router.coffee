@@ -11,6 +11,7 @@ define ['backbone', 'require', 'views/MainView', 'views/ForumView', 'views/Threa
 
     initialize: (options = {}) ->
       @.loggedInUser = options.email || null
+      @.is_admin = options.is_admin || false
 
     index: ->
       MainView =  require('views/MainView')
